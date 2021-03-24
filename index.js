@@ -32,4 +32,4 @@ class AppServer {
  * Starts webserver to test application
  */
 
-(new AppServer("app")).start(8000);
+(new AppServer("docs")).start(8000);

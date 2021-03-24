@@ -2,7 +2,7 @@
 
 const path = require("path"),
     ENTRY = "./src/index.js",
-    FILE_PATH = "./app/resources/js/",
+    FILE_PATH = "./docs/resources/js/",
     FILE_NAME = "bundle.js";
 
 module.exports = {

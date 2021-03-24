@@ -1,7 +1,7 @@
 {
     "name": "android-assignment-viewer",
     "version": "0.0.1",
-    "description": "Online viewer app for assignments in our Android class ",
+    "description": "Online viewer for assignments in our Android class",
     "directories": {
         "doc": "docs"
     },

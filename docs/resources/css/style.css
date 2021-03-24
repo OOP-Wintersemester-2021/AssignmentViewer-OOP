@@ -1,0 +1,95 @@
+:root {
+    --Background: #282a36;
+    --CurrentLine: #44475a;
+    --Foreground: #f8f8f2;
+    --Comment: #6272a4;
+    --Cyan: #8be9fd;
+    --Green: #50fa7b;
+    --Orange: #ffb86c;
+    --Pink: #ff79c6;
+    --Purple: #bd93f9;
+    --Red: #ff5555;
+    --Yellow: #f1fa8c;
+}
+
+body {
+    display: flex;
+    flex-direction: column;
+    align-content: space-between;
+    margin: 0;
+    padding: 0;
+    height: 100vh;
+    overflow: hidden;
+    background-color: var(--Background);
+    font-family: 'Space Grotesk', sans-serif;
+}
+
+.app-information {
+    padding: 0.5em;
+    background-color: var(--Orange);
+    color: var(--Background);
+}
+
+.app-information a {
+    color: var(--Red);
+}
+
+.assignment-container {
+    display: flex;
+    flex-direction: row;
+}
+
+.assignment-container .icon {
+    border-radius: 50%;
+    padding: 0.1em;
+    background-color: var(--Orange);
+    color: var(--Background);
+}
+
+.assignment-container .meta {
+    display: flex;
+    flex-direction: column;
+    flex-basis: 20%;
+    align-self: flex-start;
+    padding: 1em;
+    color: var(--Foreground);
+}
+
+.assignment-container .meta .title {
+    margin-bottom: 0.5em;
+    color: var(--Green);
+}
+
+.assignment-container .meta .author {}
+
+.assignment-container .meta .edit {
+    margin-bottom: 0.5em;
+}
+
+.assignment-container .meta .abstract {
+    line-height: 1.1em;
+}
+
+.assignment-container .content {
+    height: 90vh;
+    flex-basis: 75%;
+    overflow-x: hidden;
+    overflow-y: scroll;
+    scrollbar-color: var(--Orange) var(--Background);
+    scrollbar-width: thin;
+    margin: 1% 0 2.5% 0;
+    color: var(--Foreground);
+}
+
+.assignment-container .content::-webkit-scrollbar-track {
+    background-color: var(--Orange) !important;
+}
+
+.assignment-container .links {
+    display: flex;
+    flex-direction: column;
+}
+
+.assignment-container .links a {
+    color: var(--Foreground);
+}
