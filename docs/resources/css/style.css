@@ -24,6 +24,18 @@ body {
     font-family: 'Space Grotesk', sans-serif;
 }
 
+.toc-link {
+    display: none;
+    position: fixed;
+    bottom: 5%;
+    right: 0;
+    padding: 2.5%;
+    border-radius: 10% 0 0 10%;
+    background-color: var(--Orange);
+    color: var(--Foreground);
+    font-family: 'Space Grotesk', sans-serif;
+}
+
 .app-information {
     padding: 0.5em;
     background-color: var(--Orange);
@@ -37,6 +49,10 @@ body {
 .assignment-container {
     display: flex;
     flex-direction: row;
+}
+
+.assignment-container a {
+    color: var(--Orange);
 }
 
 .assignment-container .icon {
@@ -85,11 +101,59 @@ body {
     background-color: var(--Orange) !important;
 }
 
+.assignment-container .content img {
+    display: block;
+    width: 80%;
+    margin: 0 auto;
+}
+
+.assignment-container .content .image-label {
+    margin-top: 0;
+    text-align: center;
+    font-size: 0.9em;
+    color: var(--Orange);
+}
+
 .assignment-container .links {
     display: flex;
     flex-direction: column;
 }
 
 .assignment-container .links a {
-    color: var(--Foreground);
+    color: var(--Orange);
+}
+
+.assignment-container .toc {
+    display: flex;
+    flex-direction: column;
+    margin: 0;
+}
+
+.assignment-container .toc .entry {
+    cursor: pointer;
+    text-decoration: underline;
+    color: var(--Orange);
+}
+
+.assignment-container .toc .entry:hover {
+    cursor: pointer;
+}
+
+
+/* Make content readable on mobile devices */
+
+@media only screen and (max-width: 768px) {
+    body {
+        overflow: auto;
+    }
+    .app-information {}
+    .assignment-container {
+        flex-direction: column;
+    }
+    .assignment-container .content {
+        margin: 2.5%
+    }
+    .toc-link {
+        display: block;
+    }
 }
