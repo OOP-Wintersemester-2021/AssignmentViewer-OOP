@@ -49,7 +49,10 @@ function findAndMarkImageDescriptions(html) {
     tmpEl.innerHTML = html;
     images = tmpEl.querySelectorAll("p img");
     for (let i = 0; i < images.length; i++) {
-        images[i].parentElement.nextElementSibling.classList.add("image-label");
+        let imageLabel = images[i].parentElement.nextElementSibling;
+        if (imageLabel !== null) {
+            imageLabel.classList.add("image-label");
+        }
     }
     return tmpEl.innerHTML;
 }
