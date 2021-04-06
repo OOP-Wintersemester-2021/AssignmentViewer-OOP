@@ -41,7 +41,35 @@ function createCommitsURL(task) {
 
 function fixRelativeLinksInHTML(url, html) {
     return html.replaceAll("img src=\"./", `img src=\"${url}`);
+}
 
+function findAndMarkImageDescriptions(html) {
+    let tmpEl = document.createElement("div"),
+        images;
+    tmpEl.innerHTML = html;
+    images = tmpEl.querySelectorAll("p img");
+    for (let i = 0; i < images.length; i++) {
+        images[i].parentElement.nextElementSibling.classList.add("image-label");
+    }
+    return tmpEl.innerHTML;
+}
+
+function extractTOC(html) {
+    let tmpEl = document.createElement("div"),
+        title, headings, toc = [];
+    tmpEl.innerHTML = html;
+    toc.push({
+        label: "Start",
+        id: tmpEl.querySelector("h1").id
+    });
+    headings = tmpEl.querySelectorAll("h2");
+    for (let i = 0; i < headings.length; i++) {
+        toc.push({
+            label: headings[i].innerHTML,
+            id: headings[i].id
+        });
+    }
+    return toc;
 }
 
 function extractLatestCommit(commits) {
@@ -79,9 +107,12 @@ class FetchAssignmentTask {
                 latestCommit = extractLatestCommit(commitsAsObject),
                 readmeAsHTML = markdownConverter.makeHtml(readme),
                 starterURL = createStarterCodeDownloadURL(this),
-                solutionURL = createSolutionCodeDownloadURL(this);
+                solutionURL = createSolutionCodeDownloadURL(this),
+                toc;
             readmeAsHTML = fixRelativeLinksInHTML(createBaseURL(this), readmeAsHTML);
-            return new Assignment(configAsObject.title, latestCommit.author, latestCommit.date, configAsObject.abstract, readmeAsHTML, starterURL, solutionURL);
+            readmeAsHTML = findAndMarkImageDescriptions(readmeAsHTML);
+            toc = extractTOC(readmeAsHTML);
+            return new Assignment(configAsObject.title, latestCommit.author, latestCommit.date, configAsObject.abstract, readmeAsHTML, starterURL, solutionURL, toc);
         } catch (error) {
             console.error(error);
             return undefined;

@@ -30,3 +30,5 @@ async function loadAssignment() {
 }
 
 loadAssignment();
+// Ensure content is updated when url is changed without reloading website
+window.addEventListener("hashchange", loadAssignment);

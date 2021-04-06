@@ -22,37 +22,26 @@ function addLink(el, link, label) {
     linkEl.append(newLinkEl);
 }
 
-function updateTableOfContents(el) {
-    let title = el.querySelector(".content h1"),
-        headings = el.querySelectorAll(".content h2"),
-        tocEl = el.querySelector(".toc");
-    tocEl.append(createEntryToTableOfContents(title, "Start"));
-    for (let i = 0; i < headings.length; i++) {
-        tocEl.append(createEntryToTableOfContents(headings[i]));
+function updateTableOfContents(el, toc) {
+    let tocEl = el.querySelector(".toc");
+    for (let i = 0; i < toc.length; i++) {
+        let newTocEntry = createEntryToTableOfContents(toc[i]);
+        tocEl.append(newTocEntry);
     }
 }
 
-function createEntryToTableOfContents(el, title) {
+function createEntryToTableOfContents(entry) {
     let newEl = document.createElement("li");
     newEl.classList.add("entry");
-    newEl.innerHTML = title || el.innerHTML;
-    newEl.setAttribute("data-target-id", el.id);
-    newEl.addEventListener("click", onEntryInTableOfContentsClicked);
-    return newEl;
-}
-
-function onEntryInTableOfContentsClicked(event) {
-    let targetEl = document.querySelector(`#${event.target.getAttribute("data-target-id")}`);
-    targetEl.scrollIntoView({
-        behavior: "smooth",
+    newEl.innerHTML = entry.label;
+    newEl.setAttribute("data-target-id", entry.id);
+    newEl.addEventListener("click", (event) => {
+        let targetEl = document.querySelector(`#${event.target.getAttribute("data-target-id")}`);
+        targetEl.scrollIntoView({
+            behavior: "smooth",
+        });
     });
-}
-
-function updateImageElements(el) {
-    let images = el.querySelectorAll(".content p img");
-    for (let i = 0; i < images.length; i++) {
-        images[i].parentElement.nextElementSibling.classList.add("image-label");
-    }
+    return newEl;
 }
 
 function enableLinkToTableOfContents() {
@@ -64,16 +53,23 @@ class AssignmentViewer {
 
     constructor() {
         this.el = document.querySelector(".assignment-container");
+        enableLinkToTableOfContents();
     }
 
     render(assignment) {
+        this.reset();
         updateMetaInformation(this.el, assignment);
         updateContent(this.el, assignment);
-        updateTableOfContents(this.el);
-        updateImageElements(this.el);
-        enableLinkToTableOfContents();
+        updateTableOfContents(this.el, assignment.toc);
         addLink(this.el, assignment.starter, "Startercode");
         addLink(this.el, assignment.solution, "Lösungsvorschlag");
+        hljs.highlightAll();
+    }
+
+    reset() {
+        this.el.querySelector(".content").innerHTML = "";
+        this.el.querySelector(".toc").innerHTML = "";
+        this.el.querySelector(".links").innerHTML = "";
     }
 
 }
