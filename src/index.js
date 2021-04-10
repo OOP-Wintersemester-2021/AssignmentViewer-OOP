@@ -1,7 +1,7 @@
 /* eslint-env browser */
 
 import FetchAssignmentTask from "./assignments/FetchAssignmentTask.js";
-import AssignmentViewer from "./viewer/AssignmentViewer.js";
+import AssignmentViewer from "./ui/AssignmentViewer.js";
 
 function getParameterFromHash() {
     let hash = location.hash.substring(1),

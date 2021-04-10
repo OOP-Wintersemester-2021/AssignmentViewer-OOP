@@ -20,30 +20,37 @@
         Kooperation zwischen der <a href="https://www.uni-passau.de/">Uni Passau</a> und der <a href="https://www.uni-regensburg.de/">Uni Regensburg</a> angeboten wird.
     </div>
     <div class="assignment-container">
-        <span class="meta">
-            <h2 class="title"></h2>
-        <span class="author">
-        </span>
-        <span class="edit">
-        </span>
-        <span class="abstract"></span>
-        <h3>Downloads</h3>
-        <span class="links">
-        </span>
-        <h3 class="toc-header">Inhalt</h3>
-        <ol class="toc">
-
-        </ol>
-        </span>
-        <span class="content" data-simplebar>
+        <span class="sidebar-left">
         </span>
     </div>
     <div class="toc-link">Inhalt</div>
+    <!-- Template for element showing assignments meta data and properties -->
+    <template id="properties-element-template">
+        <span class="properties">
+            <h2 class="title"></h2>
+            <span class="author"></span>
+            <span class="edit"></span>
+            <span class="abstract"></span>
+            <h3>Downloads</h3>
+            <span class="links"></span>
+        </span>
+    </template>
+    <!-- Template for table of contents for assignment -->
+    <template id="toc-element-template">
+        <span class="toc">
+            <h3 class="toc-header">Inhalt</h3>
+            <ol class="toc-list"></ol>
+        </span>
+    </template>
+    <!-- Template for assignments main content -->
+    <template id="content-element-template">
+        <span class="content" data-simplebar></span>
+    </template>
 </body>
 
 <script type="application/javascript" src="https://cdn.jsdelivr.net/npm/simplebar@latest/dist/simplebar.min.js"></script>
 <script type="application/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/showdown/1.9.1/showdown.min.js"></script>
-<script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/10.7.2/highlight.min.js"></script>
+<script type="application/javascript" src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/10.7.2/highlight.min.js"></script>
 <script type="application/javascript" src="resources/js/bundle.js"></script>
 
 </html>

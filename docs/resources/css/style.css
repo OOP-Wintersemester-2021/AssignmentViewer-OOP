@@ -12,6 +12,10 @@
     --Yellow: #f1fa8c;
 }
 
+.hidden {
+    display: none;
+}
+
 body {
     display: flex;
     flex-direction: column;
@@ -62,7 +66,7 @@ body {
     color: var(--Background);
 }
 
-.assignment-container .meta {
+.assignment-container .sidebar-left {
     display: flex;
     flex-direction: column;
     flex-basis: 20%;
@@ -71,18 +75,18 @@ body {
     color: var(--Foreground);
 }
 
-.assignment-container .meta .title {
+.assignment-container .properties .title {
     margin-bottom: 0.5em;
     color: var(--Green);
 }
 
-.assignment-container .meta .author {}
+.assignment-container .properties .author {}
 
-.assignment-container .meta .edit {
+.assignment-container .properties .edit {
     margin-bottom: 0.5em;
 }
 
-.assignment-container .meta .abstract {
+.assignment-container .properties .abstract {
     line-height: 1.1em;
 }
 
@@ -152,6 +156,11 @@ body {
     }
     .assignment-container .content {
         margin: 2.5%
+    }
+    .assignment-container .content img {
+        display: block;
+        width: 100%;
+        margin: 0 auto;
     }
     .toc-link {
         display: block;
