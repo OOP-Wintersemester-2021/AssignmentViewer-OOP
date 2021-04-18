@@ -109,13 +109,14 @@ class FetchAssignmentTask {
                 commitsAsObject = JSON.parse(commits),
                 latestCommit = extractLatestCommit(commitsAsObject),
                 readmeAsHTML = markdownConverter.makeHtml(readme),
-                starterURL = createStarterCodeDownloadURL(this),
-                solutionURL = createSolutionCodeDownloadURL(this),
+                starterURL = configAsObject.hasStarterCode ? createStarterCodeDownloadURL(this) : undefined,
+                solutionURL = configAsObject.hasSolutionCode ? createSolutionCodeDownloadURL(this) : undefined,
+                solutionAvailableOn = configAsObject.solutionAvailableOn,
                 toc;
             readmeAsHTML = fixRelativeLinksInHTML(createBaseURL(this), readmeAsHTML);
             readmeAsHTML = findAndMarkImageDescriptions(readmeAsHTML);
             toc = extractTOC(readmeAsHTML);
-            return new Assignment(configAsObject.title, latestCommit.author, latestCommit.date, configAsObject.abstract, readmeAsHTML, starterURL, solutionURL, toc);
+            return new Assignment(configAsObject.title, latestCommit.author, latestCommit.date, configAsObject.abstract, readmeAsHTML, starterURL, solutionURL, solutionAvailableOn, toc);
         } catch (error) {
             console.error(error);
             return undefined;

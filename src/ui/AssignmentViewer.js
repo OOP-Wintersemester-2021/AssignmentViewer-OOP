@@ -4,13 +4,19 @@ import ContentElement from "./elements/ContentElement.js";
 import PropertiesElement from "./elements/PropertiesElement.js";
 import TableOfContents from "./elements/TableOfContents.js";
 
+function downloadAssignmentAsPDF() {
+    window.print();
+}
+
 class AssignmentViewer {
 
     constructor() {
         let assignmentContainer = document.querySelector(".assignment-container"),
             leftSidebarElement = document.querySelector(".sidebar-left");
         this.contentElement = new ContentElement();
-        this.propertiesElement = new PropertiesElement();
+        this.propertiesElement = new PropertiesElement({
+            download: downloadAssignmentAsPDF,
+        });
         this.tableOfContents = new TableOfContents();
         this.contentElement.hide();
         this.propertiesElement.hide();
@@ -18,6 +24,7 @@ class AssignmentViewer {
         this.contentElement.appendTo(assignmentContainer);
         this.propertiesElement.appendTo(leftSidebarElement);
         this.tableOfContents.appendTo(leftSidebarElement);
+
     }
 
     render(assignment) {

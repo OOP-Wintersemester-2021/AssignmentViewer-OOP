@@ -90,6 +90,20 @@ body {
     line-height: 1.1em;
 }
 
+.assignment-container .properties .button {
+    display: inline-block;
+    margin: 1vh auto;
+    padding: 2%;
+    border-radius: 5px;
+    background-color: var(--Orange);
+    color: var(--Background);
+}
+
+.assignment-container .properties .button:hover {
+    cursor: pointer;
+    opacity: 0.9;
+}
+
 .assignment-container .content {
     height: 90vh;
     flex-basis: 75%;
@@ -164,5 +178,27 @@ body {
     }
     .toc-link {
         display: block;
+    }
+}
+
+@media print {
+    .app-information,
+    .sidebar-left,
+    .toc-link {
+        display: none !important;
+    }
+    body {
+        background-color: #fff;
+        color: #000;
+        overflow: visible !important;
+        height: 100% !important;
+    }
+    .content {
+        overflow: visible !important;
+        height: 100% !important;
+        font-size: 1.5em !important;
+    }
+    .content p:not(.image-label) {
+        text-align: justify !important;
     }
 }
