@@ -163,13 +163,14 @@ body {
 @media only screen and (max-width: 768px) {
     body {
         overflow: auto;
+        background-color: #FFF;
     }
     .app-information {}
     .assignment-container {
         flex-direction: column;
     }
     .assignment-container .content {
-        margin: 2.5%
+        margin: 2.5%;
     }
     .assignment-container .content img {
         display: block;
@@ -191,17 +192,44 @@ body {
         display: none !important;
     }
     body {
+        display: block !important;
         background-color: #fff;
         color: #000;
         overflow: visible !important;
         height: 100% !important;
+        font-size: 12pt !important;
     }
-    .content {
+    h1 {
+        font-size: 24pt !important;
+    }
+    h2 {
+        font-size: 18pt !important;
+    }
+    h3 {
+        font-size: 16pt !important;
+    }
+    .assignment-container {
+        display: block;
+        font-size: 14pt !important;
+    }
+    .assignment-container .content {
+        display: block !important;
         overflow: visible !important;
         height: 100% !important;
-        font-size: 1.5em !important;
+        flex-basis: 100% !important;
+        font-size: 14pt !important;
+        line-height: 21pt !important;
+        color: #000 !important;
     }
-    .content p:not(.image-label) {
+    .assignment-container .content p {
+        font-size: 14pt !important;
+        line-height: 21pt !important;
+    }
+    .assignment-container .content .image-label {
+        color: #000 !important;
+        font-size: 12pt !important;
+    }
+    .assignment-container .content p:not(.image-label) {
         text-align: justify !important;
     }
 }
