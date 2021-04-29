@@ -25,7 +25,9 @@ class TableOfContents extends AssignmentElement {
     constructor() {
         super(document.querySelector("#toc-element-template"));
         let tocLink = document.querySelector(".toc-link");
-        tocLink.addEventListener("click", scrollToTOCHeader);
+        tocLink.addEventListener("click", () => {
+            scrollToTOCHeader();
+        });
     }
 
     render(assignment) {
