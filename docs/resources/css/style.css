@@ -91,7 +91,7 @@ body {
 }
 
 .assignment-container .properties .button {
-    display: inline-block;
+    display: block;
     margin: 1vh auto;
     padding: 2%;
     border-radius: 5px;
@@ -175,6 +175,9 @@ body {
         display: block;
         width: 100%;
         margin: 0 auto;
+    }
+    .assignment-container .properties .button {
+        display: none;
     }
     .toc-link {
         display: block;

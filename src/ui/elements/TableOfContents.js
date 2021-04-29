@@ -8,7 +8,7 @@ function createEntryToTableOfContents(entry) {
     newEl.innerHTML = entry.label;
     newEl.setAttribute("data-target-id", entry.id);
     newEl.addEventListener("click", (event) => {
-        let targetEl = document.querySelector(`#${event.target.getAttribute("data-target-id")}`);
+        let targetEl = document.querySelector(`[id="${event.target.getAttribute("data-target-id")}"`);
         targetEl.scrollIntoView({
             behavior: "smooth",
         });
