@@ -101,6 +101,7 @@ class FetchAssignmentTask {
     }
 
     async run() {
+        markdownConverter.setOption("disableForced4SpacesIndentedSublists", true);
         try {
             let config = await fetchFileAsText(createConfigURL(this)),
                 readme = await fetchFileAsText(createReadmeURL(this)),
