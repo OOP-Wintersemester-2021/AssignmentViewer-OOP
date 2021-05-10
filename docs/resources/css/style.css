@@ -132,6 +132,18 @@ body {
     color: var(--Orange);
 }
 
+.assignment-container .content table {
+    width: 80%;
+    margin: 0 auto;
+}
+
+.assignment-container .content table tbody:before {
+    content: "-";
+    display: block;
+    line-height: 2vh;
+    text-indent: -99999px;
+}
+
 .assignment-container .links {
     display: flex;
     flex-direction: column;
@@ -163,7 +175,6 @@ body {
 @media only screen and (max-width: 768px) {
     body {
         overflow: auto;
-        background-color: #FFF;
     }
     .app-information {}
     .assignment-container {
@@ -176,6 +187,12 @@ body {
         display: block;
         width: 100%;
         margin: 0 auto;
+    }
+    .assignment-container .content table th {
+        display: none;
+    }
+    .assignment-container .content table td {
+        display: block;
     }
     .assignment-container .properties .button {
         display: none;
