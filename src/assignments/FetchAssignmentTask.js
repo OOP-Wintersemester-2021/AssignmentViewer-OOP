@@ -100,14 +100,6 @@ class FetchAssignmentTask {
         Object.freeze(this);
     }
 
-    /**
-![Screenshots der ToDo-App](./docs/screenshot_possible_results_simple.png)
-Einfache Lösung
-
-
-![Screenshots der ToDo-App](./docs/screenshot_possible_result.png)
-Lösung mit CardViews für die Listenelemente
-     */
     async run() {
         markdownConverter.setOption("disableForced4SpacesIndentedSublists", true);
         markdownConverter.setOption("tables", true);
