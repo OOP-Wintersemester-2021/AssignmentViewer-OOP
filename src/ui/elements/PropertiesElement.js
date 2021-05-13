@@ -35,13 +35,21 @@ class PropertiesElement extends AssignmentElement {
         if (assignment.starter !== undefined) {
             this.el.querySelector(".links").append(createLinkElement(assignment.starter, "Startercode"));
         }
-        if (assignment.starter !== undefined) {
+        if (assignment.simpleSolution !== undefined) {
+            let solutionAvailableOnDate = Date.parse(assignment.solutionAvailableOn),
+                now = new Date();
+            if (now >= solutionAvailableOnDate) {
+                this.el.querySelector(".links").append(createLinkElement(assignment.simpleSolution, "Einfacher Lösungsvorschlag"));
+            }
+        }
+        if (assignment.solution !== undefined) {
             let solutionAvailableOnDate = Date.parse(assignment.solutionAvailableOn),
                 now = new Date();
             if (now >= solutionAvailableOnDate) {
                 this.el.querySelector(".links").append(createLinkElement(assignment.solution, "Lösungsvorschlag"));
             }
         }
+
         if (this.el.querySelector(".links").childNodes.length === 0) {
             this.el.querySelector(".links").previousElementSibling.remove();
         }

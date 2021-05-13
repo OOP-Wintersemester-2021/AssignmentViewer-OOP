@@ -9,6 +9,7 @@ const URL_TEMPLATE = "https://raw.githubusercontent.com/$ORGANIZATION/$REPO/mast
     README_FILE_NAME = "Readme.md",
     STARTER_CODE_ARCHIVE = "starter.zip",
     SOLUTION_CODE_ARCHIVE = "solution.zip",
+    SIMPLE_SOLUTION_CODE_ARCHIVE = "simple-solution.zip",
     markdownConverter = new showdown.Converter();
 
 function createBaseURL(task) {
@@ -33,6 +34,10 @@ function createStarterCodeDownloadURL(task) {
 
 function createSolutionCodeDownloadURL(task) {
     return createBaseDownloadURL(task) + SOLUTION_CODE_ARCHIVE;
+}
+
+function createSimpleSolutionCodeDownloadURL(task) {
+    return createBaseDownloadURL(task) + SIMPLE_SOLUTION_CODE_ARCHIVE;
 }
 
 function createCommitsURL(task) {
@@ -113,12 +118,13 @@ class FetchAssignmentTask {
                 readmeAsHTML = markdownConverter.makeHtml(readme),
                 starterURL = configAsObject.hasStarterCode ? createStarterCodeDownloadURL(this) : undefined,
                 solutionURL = configAsObject.hasSolutionCode ? createSolutionCodeDownloadURL(this) : undefined,
+                simpleSolutionURL = configAsObject.hasSimpleSolutionCode ? createSimpleSolutionCodeDownloadURL(this) : undefined,
                 solutionAvailableOn = configAsObject.solutionAvailableOn,
                 toc;
             readmeAsHTML = fixRelativeLinksInHTML(createBaseURL(this), readmeAsHTML);
             readmeAsHTML = findAndMarkImageDescriptions(readmeAsHTML);
             toc = extractTOC(readmeAsHTML);
-            return new Assignment(configAsObject.title, latestCommit.author, latestCommit.date, configAsObject.abstract, readmeAsHTML, starterURL, solutionURL, solutionAvailableOn, toc);
+            return new Assignment(configAsObject.title, latestCommit.author, latestCommit.date, configAsObject.abstract, readmeAsHTML, starterURL, solutionURL, simpleSolutionURL, solutionAvailableOn, toc);
         } catch (error) {
             console.error(error);
             return undefined;
