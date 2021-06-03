@@ -153,6 +153,13 @@ body {
     color: var(--Orange);
 }
 
+.assignment-container .links .hint {
+    display: inline-block;
+    margin-left: 0.25em;
+    font-size: 0.75em;
+    color: var(--Foreground);
+}
+
 .assignment-container .toc {
     display: flex;
     flex-direction: column;

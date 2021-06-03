@@ -10,6 +10,7 @@ const URL_TEMPLATE = "https://raw.githubusercontent.com/$ORGANIZATION/$REPO/mast
     STARTER_CODE_ARCHIVE = "starter.zip",
     SOLUTION_CODE_ARCHIVE = "solution.zip",
     SIMPLE_SOLUTION_CODE_ARCHIVE = "simple-solution.zip",
+    ADVANCED_SOLUTION_CODE_ARCHIVE = "advanced-solution.zip",
     markdownConverter = new showdown.Converter();
 
 function createBaseURL(task) {
@@ -38,6 +39,10 @@ function createSolutionCodeDownloadURL(task) {
 
 function createSimpleSolutionCodeDownloadURL(task) {
     return createBaseDownloadURL(task) + SIMPLE_SOLUTION_CODE_ARCHIVE;
+}
+
+function createAdvancedSolutionCodeDownloadURL(task) {
+    return createBaseDownloadURL(task) + ADVANCED_SOLUTION_CODE_ARCHIVE;
 }
 
 function createCommitsURL(task) {
@@ -119,12 +124,16 @@ class FetchAssignmentTask {
                 starterURL = configAsObject.hasStarterCode ? createStarterCodeDownloadURL(this) : undefined,
                 solutionURL = configAsObject.hasSolutionCode ? createSolutionCodeDownloadURL(this) : undefined,
                 simpleSolutionURL = configAsObject.hasSimpleSolutionCode ? createSimpleSolutionCodeDownloadURL(this) : undefined,
+                advancedSolutionURL = configAsObject.hasAdvancedSolutionCode ? createAdvancedSolutionCodeDownloadURL(this) : undefined,
+                solutionComment = configAsObject.solutionComment || "",
+                simpleSolutionComment = configAsObject.simpleSolutionComment || "",
+                advancedSolutionComment = configAsObject.advancedSolutionComment || "",
                 solutionAvailableOn = configAsObject.solutionAvailableOn,
                 toc;
             readmeAsHTML = fixRelativeLinksInHTML(createBaseURL(this), readmeAsHTML);
             readmeAsHTML = findAndMarkImageDescriptions(readmeAsHTML);
             toc = extractTOC(readmeAsHTML);
-            return new Assignment(configAsObject.title, latestCommit.author, latestCommit.date, configAsObject.abstract, readmeAsHTML, starterURL, solutionURL, simpleSolutionURL, solutionAvailableOn, toc);
+            return new Assignment(configAsObject.title, latestCommit.author, latestCommit.date, configAsObject.abstract, readmeAsHTML, starterURL, solutionURL, simpleSolutionURL, advancedSolutionURL, solutionComment, simpleSolutionComment, advancedSolutionComment, solutionAvailableOn, toc);
         } catch (error) {
             console.error(error);
             return undefined;

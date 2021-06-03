@@ -39,14 +39,21 @@ class PropertiesElement extends AssignmentElement {
             let solutionAvailableOnDate = Date.parse(assignment.solutionAvailableOn),
                 now = new Date();
             if (now >= solutionAvailableOnDate) {
-                this.el.querySelector(".links").append(createLinkElement(assignment.simpleSolution, "Einfacher Lösungsvorschlag"));
+                this.el.querySelector(".links").append(createLinkElement(assignment.simpleSolution, "Einfacher Lösungsvorschlag<span class=\"hint\">" + assignment.simpleSolutionComment + "</a>"));
             }
         }
         if (assignment.solution !== undefined) {
             let solutionAvailableOnDate = Date.parse(assignment.solutionAvailableOn),
                 now = new Date();
             if (now >= solutionAvailableOnDate) {
-                this.el.querySelector(".links").append(createLinkElement(assignment.solution, "Lösungsvorschlag"));
+                this.el.querySelector(".links").append(createLinkElement(assignment.solution, "Lösungsvorschlag<span class=\"hint\">" + assignment.solutionComment + "</a>"));
+            }
+        }
+        if (assignment.advancedSolution !== undefined) {
+            let solutionAvailableOnDate = Date.parse(assignment.solutionAvailableOn),
+                now = new Date();
+            if (now >= solutionAvailableOnDate) {
+                this.el.querySelector(".links").append(createLinkElement(assignment.advancedSolution, "Erweiterter Lösungsvorschlag<span class=\"hint\">" + assignment.advancedSolutionComment + "</a>"));
             }
         }
 
