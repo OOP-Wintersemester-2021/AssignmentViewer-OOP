@@ -119,6 +119,16 @@ body {
     background-color: var(--Orange) !important;
 }
 
+.assignment-container .content video {
+    display: block;
+    margin: 0 auto;
+    width: 60%;
+    height: auto;
+    border-style: solid;
+    border-color: var(--Orange);
+    object-fit: scale-down;
+}
+
 .assignment-container .content img {
     display: block;
     max-height: 500px;
@@ -189,6 +199,9 @@ body {
     }
     .assignment-container .content {
         margin: 2.5%;
+    }
+    .assignment-container .content video {
+        width: 90%;
     }
     .assignment-container .content img {
         display: block;
