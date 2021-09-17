@@ -1,15 +1,15 @@
 :root {
-    --Background: #282a36;
-    --CurrentLine: #44475a;
+    --Background: #282C34;
+    --CurrentLine: #5c6370;
     --Foreground: #f8f8f2;
-    --Comment: #6272a4;
-    --Cyan: #8be9fd;
-    --Green: #50fa7b;
-    --Orange: #ffb86c;
-    --Pink: #ff79c6;
-    --Purple: #bd93f9;
-    --Red: #ff5555;
-    --Yellow: #f1fa8c;
+    --Comment: #ABB2BF;
+    --Cyan: #56B6C2;
+    --Green: #98C379;
+    --Orange: #FC7C15;
+    --Pink: #61AFEF;
+    --Purple: #C678DD;
+    --Red: #E06275;
+    --Yellow: #E5C07B;
 }
 
 .hidden {
@@ -35,19 +35,19 @@ body {
     right: 0;
     padding: 2.5%;
     border-radius: 10% 0 0 10%;
-    background-color: var(--Orange);
+    background-color: var(--Purple);
     color: var(--Foreground);
     font-family: 'Space Grotesk', sans-serif;
 }
 
 .app-information {
     padding: 0.5em;
-    background-color: var(--Orange);
+    background-color: var(--Purple);
     color: var(--Background);
 }
 
 .app-information a {
-    color: var(--Red);
+    color: var(--Yellow);
 }
 
 .assignment-container {
@@ -56,13 +56,13 @@ body {
 }
 
 .assignment-container a {
-    color: var(--Orange);
+    color: var(--Purple);
 }
 
 .assignment-container .icon {
     border-radius: 50%;
     padding: 0.1em;
-    background-color: var(--Orange);
+    background-color: var(--Purple);
     color: var(--Background);
 }
 
@@ -95,7 +95,7 @@ body {
     margin: 1vh auto;
     padding: 2%;
     border-radius: 5px;
-    background-color: var(--Orange);
+    background-color: var(--Purple);
     color: var(--Background);
 }
 
@@ -109,14 +109,14 @@ body {
     flex-basis: 75%;
     overflow-x: hidden;
     overflow-y: scroll;
-    scrollbar-color: var(--Orange) var(--Background);
+    scrollbar-color: var(--Purple) var(--Background);
     scrollbar-width: thin;
     margin: 1% 0 2.5% 0;
     color: var(--Foreground);
 }
 
 .assignment-container .content::-webkit-scrollbar-track {
-    background-color: var(--Orange) !important;
+    background-color: var(--Purple) !important;
 }
 
 .assignment-container .content video {
@@ -125,7 +125,7 @@ body {
     width: 60%;
     height: auto;
     border-style: solid;
-    border-color: var(--Orange);
+    border-color: var(--Purple);
     object-fit: scale-down;
 }
 
@@ -139,7 +139,7 @@ body {
     margin-top: 0;
     text-align: center;
     font-size: 0.9em;
-    color: var(--Orange);
+    color: var(--Purple);
 }
 
 .assignment-container .content table {
@@ -160,7 +160,7 @@ body {
 }
 
 .assignment-container .links a {
-    color: var(--Orange);
+    color: var(--Purple);
 }
 
 .assignment-container .links .hint {
@@ -179,7 +179,7 @@ body {
 .assignment-container .toc .entry {
     cursor: pointer;
     text-decoration: underline;
-    color: var(--Orange);
+    color: var(--Purple);
 }
 
 .assignment-container .toc .entry:hover {
