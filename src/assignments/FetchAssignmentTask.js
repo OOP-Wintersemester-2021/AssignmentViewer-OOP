@@ -1,12 +1,17 @@
 /* eslint-env browser */
+/* global showdown */
 
 import Assignment from "./Assignment.js";
 
-const URL_TEMPLATE = "https://raw.githubusercontent.com/$ORGANIZATION/$REPO/main/",
-    DOWNLOAD_URL_TEMPLATE = "https://github.com/$ORGANIZATION/$REPO/archive/refs/heads/",
-    GET_COMMITS_URL_TEMPLATE = "https://api.github.com/repos/$ORGANIZATION/$REPO/commits?sha=main",
+const URL_TEMPLATE =
+    "https://raw.githubusercontent.com/$ORGANIZATION/$REPO/main/",
+    DOWNLOAD_URL_TEMPLATE =
+    "https://github.com/$ORGANIZATION/$REPO/archive/refs/heads/",
+    GET_COMMITS_URL_TEMPLATE =
+    "https://api.github.com/repos/$ORGANIZATION/$REPO/commits?sha=main",
     CONFIG_FILE_NAME = "assignment.json",
-    README_FILE_NAME = "Readme.md",
+    README_FILE_NAME = "README.md",
+    ALTERNATIVE_README_FILE_NAME = "Readme.md",
     STARTER_CODE_ARCHIVE = "starter.zip",
     SOLUTION_CODE_ARCHIVE = "solution.zip",
     SIMPLE_SOLUTION_CODE_ARCHIVE = "simple-solution.zip",
@@ -14,7 +19,8 @@ const URL_TEMPLATE = "https://raw.githubusercontent.com/$ORGANIZATION/$REPO/main
     markdownConverter = new showdown.Converter();
 
 function createBaseURL(task) {
-    return URL_TEMPLATE.replace("$ORGANIZATION", task.organization).replace("$REPO", task.repo);
+    return URL_TEMPLATE.replace("$ORGANIZATION", task.organization).replace(
+        "$REPO", task.repo);
 }
 
 function createConfigURL(task) {
@@ -25,8 +31,14 @@ function createReadmeURL(task) {
     return createBaseURL(task) + README_FILE_NAME;
 }
 
+function createAlternativeReadmeURL(task) {
+    return createBaseURL(task) + ALTERNATIVE_README_FILE_NAME;
+}
+
+
 function createBaseDownloadURL(task) {
-    return DOWNLOAD_URL_TEMPLATE.replace("$ORGANIZATION", task.organization).replace("$REPO", task.repo);
+    return DOWNLOAD_URL_TEMPLATE.replace("$ORGANIZATION", task.organization)
+        .replace("$REPO", task.repo);
 }
 
 function createStarterCodeDownloadURL(task) {
@@ -46,7 +58,8 @@ function createAdvancedSolutionCodeDownloadURL(task) {
 }
 
 function createCommitsURL(task) {
-    return GET_COMMITS_URL_TEMPLATE.replace("$ORGANIZATION", task.organization).replace("$REPO", task.repo);
+    return GET_COMMITS_URL_TEMPLATE.replace("$ORGANIZATION", task.organization)
+        .replace("$REPO", task.repo);
 }
 
 function fixRelativeLinksInHTML(url, html) {
@@ -69,17 +82,17 @@ function findAndMarkImageDescriptions(html) {
 
 function extractTOC(html) {
     let tmpEl = document.createElement("div"),
-        title, headings, toc = [];
+        headings, toc = [];
     tmpEl.innerHTML = html;
     toc.push({
         label: "Start",
-        id: tmpEl.querySelector("h1").id
+        id: tmpEl.querySelector("h1").id,
     });
     headings = tmpEl.querySelectorAll("h2");
     for (let i = 0; i < headings.length; i++) {
         toc.push({
             label: headings[i].innerHTML,
-            id: headings[i].id
+            id: headings[i].id,
         });
     }
     return toc;
@@ -88,14 +101,19 @@ function extractTOC(html) {
 function extractLatestCommit(commits) {
     return {
         author: commits[0].commit.author.name,
-        date: new Date(commits[0].commit.author.date)
+        date: new Date(commits[0].commit.author.date),
     };
 }
 
-async function fetchFileAsText(url) {
+async function fetchFileAsText(url, alternativeURL) {
     let response = await fetch(url);
     if (response.ok !== true) {
-        throw new Error(`Could not fetch: ${url}`);
+        if (alternativeURL === undefined) {
+            throw new Error(`Could not fetch: ${url}`);
+        } else {
+            let result = await fetchFileAsText(alternativeURL);
+            return result;
+        }
     } else {
         let result = await response.text();
         return result;
@@ -111,29 +129,46 @@ class FetchAssignmentTask {
     }
 
     async run() {
-        markdownConverter.setOption("disableForced4SpacesIndentedSublists", true);
+        markdownConverter.setOption("disableForced4SpacesIndentedSublists",
+            true);
         markdownConverter.setOption("tables", true);
         try {
             let config = await fetchFileAsText(createConfigURL(this)),
-                readme = await fetchFileAsText(createReadmeURL(this)),
+                readme = await fetchFileAsText(createReadmeURL(this), createAlternativeReadmeURL(this)),
                 commits = await fetchFileAsText(createCommitsURL(this)),
                 configAsObject = JSON.parse(config),
                 commitsAsObject = JSON.parse(commits),
                 latestCommit = extractLatestCommit(commitsAsObject),
                 readmeAsHTML = markdownConverter.makeHtml(readme),
-                starterURL = configAsObject.hasStarterCode ? createStarterCodeDownloadURL(this) : undefined,
-                solutionURL = configAsObject.hasSolutionCode ? createSolutionCodeDownloadURL(this) : undefined,
-                simpleSolutionURL = configAsObject.hasSimpleSolutionCode ? createSimpleSolutionCodeDownloadURL(this) : undefined,
-                advancedSolutionURL = configAsObject.hasAdvancedSolutionCode ? createAdvancedSolutionCodeDownloadURL(this) : undefined,
+                starterURL = configAsObject.hasStarterCode ?
+                createStarterCodeDownloadURL(this) : undefined,
+                solutionURL = configAsObject.hasSolutionCode ?
+                createSolutionCodeDownloadURL(this) : undefined,
+                simpleSolutionURL = configAsObject.hasSimpleSolutionCode ?
+                createSimpleSolutionCodeDownloadURL(this) : undefined,
+                advancedSolutionURL = configAsObject
+                .hasAdvancedSolutionCode ?
+                createAdvancedSolutionCodeDownloadURL(this) : undefined,
                 solutionComment = configAsObject.solutionComment || "",
-                simpleSolutionComment = configAsObject.simpleSolutionComment || "",
-                advancedSolutionComment = configAsObject.advancedSolutionComment || "",
+                simpleSolutionComment = configAsObject
+                .simpleSolutionComment || "",
+                advancedSolutionComment = configAsObject
+                .advancedSolutionComment ||
+                "",
                 solutionAvailableOn = configAsObject.solutionAvailableOn,
                 toc;
-            readmeAsHTML = fixRelativeLinksInHTML(createBaseURL(this), readmeAsHTML);
+            readmeAsHTML = fixRelativeLinksInHTML(createBaseURL(this),
+                readmeAsHTML);
             readmeAsHTML = findAndMarkImageDescriptions(readmeAsHTML);
             toc = extractTOC(readmeAsHTML);
-            return new Assignment(configAsObject.title, latestCommit.author, latestCommit.date, configAsObject.abstract, readmeAsHTML, starterURL, solutionURL, simpleSolutionURL, advancedSolutionURL, solutionComment, simpleSolutionComment, advancedSolutionComment, solutionAvailableOn, toc);
+            return new Assignment(configAsObject.title, latestCommit.author,
+                latestCommit.date, configAsObject.abstract,
+                readmeAsHTML,
+                starterURL, solutionURL, simpleSolutionURL,
+                advancedSolutionURL,
+                solutionComment, simpleSolutionComment,
+                advancedSolutionComment,
+                solutionAvailableOn, toc);
         } catch (error) {
             console.error(error);
             return undefined;

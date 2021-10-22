@@ -33,6 +33,7 @@ class AssignmentElement {
 
     reset() {
         let emptyElement = inflate(this.template);
+        console.log(emptyElement);
         this.el.replaceWith(emptyElement);
         this.el = emptyElement;
     }
