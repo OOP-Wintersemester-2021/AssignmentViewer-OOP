@@ -10,12 +10,6 @@ class SupportElement extends AssignmentElement {
 
     render(assignment) {
         super.render();
-        /*
-        let tocEl = this.el.querySelector(".toc-list");
-        for (let i = 0; i < assignment.toc.length; i++) {
-            let newTocEntry = createEntryToTableOfContents(assignment.toc[i]);
-            tocEl.append(newTocEntry);
-        }*/
     }
 
     reset() {
